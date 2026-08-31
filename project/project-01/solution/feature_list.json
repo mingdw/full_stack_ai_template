@@ -1,0 +1,38 @@
+{
+  "project": "project-01",
+  "description": "Baseline Electron knowledge base with minimal harness",
+  "features": [
+    {
+      "id": "window-launch",
+      "name": "Window Launch",
+      "description": "Electron app opens a BrowserWindow with correct dimensions and preload script",
+      "status": "pass",
+      "evidence": "npm run check && npm run build succeed; main.ts creates BrowserWindow 1200x800 with contextIsolation=true, nodeIntegration=false, preload path set",
+      "testedAt": "2026-08-31T09:50:00Z"
+    },
+    {
+      "id": "document-list",
+      "name": "Document List Panel",
+      "description": "Left sidebar shows imported documents with empty state message",
+      "status": "pass",
+      "evidence": "DocumentList renders empty state 'No documents imported yet.'; App.tsx left panel width 280px hosts DocumentList",
+      "testedAt": "2026-08-31T09:50:00Z"
+    },
+    {
+      "id": "question-panel",
+      "name": "Question Panel",
+      "description": "Bottom input bar accepts questions and submits via IPC",
+      "status": "pass",
+      "evidence": "QuestionPanel submits via onAsk -> window.knowledgeBase.qa.ask on Enter/click; preload exposes qa.ask IPC channel",
+      "testedAt": "2026-08-31T09:50:00Z"
+    },
+    {
+      "id": "data-directory",
+      "name": "Data Directory",
+      "description": "PersistenceService creates and manages userData/knowledge-base-data directory",
+      "status": "pass",
+      "evidence": "PersistenceService.ensureDirectories() creates dataDir + documents + index; main.ts uses app.getPath('userData')/knowledge-base-data; node smoke verified mkdir",
+      "testedAt": "2026-08-31T09:50:00Z"
+    }
+  ]
+}

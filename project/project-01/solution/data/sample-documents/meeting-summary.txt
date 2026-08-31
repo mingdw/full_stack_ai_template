@@ -1,0 +1,19 @@
+Team Meeting Summary - March 2026
+
+Attendees: Engineering team
+
+Discussion Points:
+
+1. Retrieval-Augmented Generation Pipeline
+The team discussed implementing a retrieval-augmented generation (RAG) pipeline for the knowledge base application. Key decisions included using local chunk storage instead of a vector database, and citation-based verification to ensure answer accuracy.
+
+2. Chunking Strategy
+Documents will be split into chunks of approximately 500 characters at paragraph boundaries.
+
+3. Grounded Q&A Requirements
+All Q&A responses must include citations that reference specific document chunks.
+
+4. Next Steps
+- Implement document import flow with file validation
+- Build indexing pipeline with progress tracking
+- Create mock Q&A service for testing without LLM API

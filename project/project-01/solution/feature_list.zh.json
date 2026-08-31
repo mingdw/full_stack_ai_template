@@ -1,0 +1,38 @@
+{
+  "project": "project-01",
+  "description": "带最小 Harness 的 Electron 知识库基线应用",
+  "features": [
+    {
+      "id": "window-launch",
+      "name": "窗口启动",
+      "description": "Electron 应用打开带正确尺寸与 preload 脚本的 BrowserWindow",
+      "status": "pass",
+      "evidence": "npm run check && npm run build 通过；main.ts 创建 1200x800 的 BrowserWindow，contextIsolation=true、nodeIntegration=false，并设置 preload 路径",
+      "testedAt": "2026-08-31T09:50:00Z"
+    },
+    {
+      "id": "document-list",
+      "name": "文档列表面板",
+      "description": "左侧边栏显示已导入文档，无文档时展示空状态提示",
+      "status": "pass",
+      "evidence": "DocumentList 在无文档时渲染空状态「No documents imported yet.»；App.tsx 左侧面板宽度 280px，内嵌 DocumentList",
+      "testedAt": "2026-08-31T09:50:00Z"
+    },
+    {
+      "id": "question-panel",
+      "name": "问答面板",
+      "description": "底部输入栏可输入问题，并通过 IPC 提交",
+      "status": "pass",
+      "evidence": "QuestionPanel 在回车或点击时经 onAsk 调用 window.knowledgeBase.qa.ask；preload 暴露 qa.ask IPC 通道",
+      "testedAt": "2026-08-31T09:50:00Z"
+    },
+    {
+      "id": "data-directory",
+      "name": "数据目录",
+      "description": "PersistenceService 创建并管理 userData/knowledge-base-data 目录",
+      "status": "pass",
+      "evidence": "PersistenceService.ensureDirectories() 创建 dataDir、documents、index；main.ts 使用 app.getPath('userData')/knowledge-base-data；node smoke 已验证 mkdir",
+      "testedAt": "2026-08-31T09:50:00Z"
+    }
+  ]
+}
