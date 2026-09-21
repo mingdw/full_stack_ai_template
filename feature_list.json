@@ -1,0 +1,60 @@
+{
+  "features": [
+    {
+      "id": "vault-setup",
+      "name": "首次设置主密码与助记词",
+      "description": "见 docs/product-specs/vault-setup.md",
+      "dependencies": [],
+      "status": "pass",
+      "evidence": "2026-09-01：npm run check + npm test（vault-setup 用例）+ npm run build；AuthService.setup 生成助记词并写入 vault_meta；SetupScreen UI 已接入。"
+    },
+    {
+      "id": "vault-login-restore",
+      "name": "登录与助记词恢复",
+      "description": "见 docs/product-specs/vault-login-restore.md",
+      "dependencies": ["vault-setup"],
+      "status": "pass",
+      "evidence": "npm test 登录/恢复用例通过；LoginScreen 支持密码解锁与助记词恢复两条路径。"
+    },
+    {
+      "id": "entry-list",
+      "name": "密码条目列表",
+      "description": "见 docs/product-specs/entry-list.md",
+      "dependencies": ["vault-login-restore"],
+      "status": "pass",
+      "evidence": "npm test 解锁后可列出条目；VaultHome 通过 window.vault.entries.list 渲染列表。"
+    },
+    {
+      "id": "entry-crud",
+      "name": "密码条目增删改查",
+      "description": "见 docs/product-specs/entry-crud.md",
+      "dependencies": ["entry-list"],
+      "status": "pass",
+      "evidence": "npm test 覆盖 create/update/delete；VaultHome 表单通过 IPC 完成增删改。"
+    },
+    {
+      "id": "ui-zh-i18n-ready",
+      "name": "中文界面与语言菜单预留",
+      "description": "见 docs/product-specs/ui-zh-i18n-ready.md",
+      "dependencies": ["entry-crud"],
+      "status": "pass",
+      "evidence": "2026-09-02：npm run check + npm test（5/5）；原生菜单项随语言切换中/英标签；Settings 位于 Help 之后，含 Language 与 More 预留；IPC app:set-locale / app:locale-changed。"
+    },
+    {
+      "id": "dev-hmr",
+      "name": "开发热更新与主进程自动重启",
+      "description": "见 docs/product-specs/dev-hmr.md",
+      "dependencies": ["ui-zh-i18n-ready"],
+      "status": "pass",
+      "evidence": "2026-09-02：npm run check/test/build 通过；scripts/dev.js 启动 Vite@5173 + Electron(VITE_DEV_SERVER_URL)；冒烟见 Vite is ready / Starting Electron；main.ts 开发态 loadURL、生产态 loadFile。"
+    },
+    {
+      "id": "login-window-flow",
+      "name": "登录与助记词恢复和确认密码助记词用户体验优化",
+      "description": "见 docs/product-specs/login-window-flow.md",
+      "dependencies": ["vault-login-restore", "ui-zh-i18n-ready"],
+      "status": "in-progress",
+      "evidence": "2026-09-03：右侧登录对齐 mock（上区居中「欢迎回来！」、下划线密码+眼睛 icon、记住/忘记、近黑胶囊登录、无 Google）；Setup/Restore 同风格；docs/DESIGN.md；npm run check + npm test（5/5）。待 npm run dev 人工冒烟。2026-09-04：状态改为 in-progress，新增助记词九宫格生成与调整页面需求。2026-09-04：实现 MnemonicGrid 组件（4×3 九宫格、拖拽交换位置、点击打乱字母显示、一键复制）；SetupScreen 步骤 3 拆分为「生成按钮 → 九宫格展示/调整 → 确认备份」两阶段；新增 5 个 i18n key。待 npm run check 验证。"
+    }
+  ]
+}
